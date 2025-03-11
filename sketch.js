@@ -1,43 +1,49 @@
-let stars = []; // Array pentru a stoca „stelele”
+let stars = [];
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(windowWidth, windowHeight); // Canvas pe tot ecranul
   background(0);
-  // Creăm 100 de stele inițiale
-  for (let i = 0; i < 100; i++) {
+  // Creăm un număr de stele proporțional cu dimensiunea ecranului
+  let starCount = Math.floor((windowWidth * windowHeight) / 5000); // Ajustabil
+  for (let i = 0; i < starCount; i++) {
     stars.push(new Star());
   }
 }
 
 function draw() {
-  background(0, 50); // Fundal negru cu transparență pentru efect de „urmă”
+  background(0, 50); // Fundal cu transparență
 
-  // Actualizăm și desenăm fiecare stea
+  // Actualizăm și desenăm stelele
   for (let star of stars) {
     star.update();
     star.show();
   }
 
-  // Adăugăm o stea nouă la click-ul mouse-ului
+  // Adăugăm stele noi la click
   if (mouseIsPressed) {
     stars.push(new Star(mouseX, mouseY));
   }
 }
 
-// Clasa Star pentru a defini comportamentul fiecărei „stele”
+// Redimensionare canvas când fereastra se schimbă
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+// Clasa Star
 class Star {
   constructor(x = random(width), y = random(-50, 0)) {
     this.x = x;
     this.y = y;
     this.size = random(2, 8);
     this.speed = random(1, 4);
-    this.color = [random(200, 255), random(200, 255), random(200, 255)]; // Tonuri deschise
+    this.color = [random(200, 255), random(200, 255), random(200, 255)];
   }
 
   update() {
-    this.y += this.speed; // Mișcare în jos
+    this.y += this.speed;
     if (this.y > height) {
-      this.y = random(-50, 0); // Resetare sus
+      this.y = random(-50, 0);
       this.x = random(width);
     }
   }
