@@ -49,6 +49,9 @@ class Star {
   }
 
   show() {
+    stroke(this.color[0], this.color[1], this.color[2], 100);
+    strokeWeight(1);
+    line(this.x, this.y - this.speed, this.x, this.y);
     noStroke();
     fill(this.color[0], this.color[1], this.color[2]);
     ellipse(this.x, this.y, this.size, this.size);
